@@ -37,3 +37,18 @@ tags
 # Environment #
 ## General ##
 .env*
+
+# Packages #
+## NodeJS ##
+node_modules/
+
+# Caches #
+## ESLint ##
+.eslintcache
+
+# Artifacts #
+## Distributables ##
+dist/
+
+## Coverage ##
+coverage/

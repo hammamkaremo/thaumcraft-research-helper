@@ -1,0 +1,76 @@
+{
+    "name": "thaumcraft-research-helper",
+    "description": "A simple, web-based research helper for older versions of Thaumcraft.",
+    "version": "0.0.1",
+    "license": "SEE LICENSE IN LICENSE.md",
+    "private": true,
+    "author": {
+        "name": "G'lek Tarssza",
+        "email": "glek@glektarssza.com",
+        "url": "https://glektarssza.com"
+    },
+    "homepage": "https://github.com/glektarssza/thaumcraft-research-helper",
+    "bugs": {
+        "url": "https://github.com/glektarssza/thaumcraft-research-helper/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/glektarssza/thaumcraft-research-helper"
+    },
+    "directories": {
+        "doc": "./docs/",
+        "example": "./examples/",
+        "lib": "./lib/",
+        "test": "./tests/"
+    },
+    "packageManager": "pnpm@10.14.0+sha512.ad27a79641b49c3e481a16a805baa71817a04bbe06a38d17e60e2eaee83f6a146c6a688125f5792e48dd5ba30e7da52a5cda4c3992b9ccf333f9ce223af84748",
+    "type": "module",
+    "scripts": {
+        "dev": "vite serve --mode development",
+        "test": "vitest --run --coverage",
+        "test:ci": "vitest --run --coverage",
+        "test:ui": "vitest --ui",
+        "lint": "pnpm run eslint && pnpm run prettier",
+        "lint:fix": "pnpm run eslint:fix && pnpm run prettier:fix",
+        "lint:ci": "pnpm run eslint:ci && pnpm run prettier:ci",
+        "eslint": "eslint --cache ./src/ts/",
+        "eslint:fix": "eslint --cache --fix ./src/ts/",
+        "eslint:ci": "eslint ./src/ts/",
+        "prettier": "prettier --config ./.prettierrc.mjs --ignore-path ./.prettierignore --ignore-path ./.gitignore --cache --check .",
+        "prettier:fix": "prettier --config ./.prettierrc.mjs --ignore-path ./.prettierignore --ignore-path ./.gitignore --cache --write .",
+        "prettier:ci": "prettier --config ./.prettierrc.mjs --ignore-path ./.prettierignore --ignore-path ./.gitignore --check .",
+        "build": "pnpm run build:prod",
+        "build:all": "pnpm run build:prod && pnpm run build:dev",
+        "build:prod": "vite build --mode production",
+        "build:dev": "vite build --mode development",
+        "clean": "pnpm run clean:prod",
+        "clean:all": "pnpm run clean:prod && pnpm run clean:dev",
+        "clean:prod": "del-cli \"./dist/\"",
+        "clean:dev": "del-cli \"./dist/\"",
+        "rebuild": "pnpm run rebuild:prod",
+        "rebuild:all": "pnpm run clean:all && pnpm run build:all",
+        "rebuild:prod": "pnpm run clean:prod && pnpm run build:prod",
+        "rebuild:dev": "pnpm run clean:dev && pnpm run build:dev"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.32.0",
+        "@faker-js/faker": "^9.9.0",
+        "@rollup/plugin-replace": "^6.0.2",
+        "@types/node": "^24.2.0",
+        "@vitest/browser": "^3.2.4",
+        "@vitest/coverage-istanbul": "^3.2.4",
+        "@vitest/ui": "^3.2.4",
+        "del-cli": "^6.0.0",
+        "eslint": "^9.32.0",
+        "eslint-config-prettier": "^10.1.8",
+        "eslint-plugin-tsdoc": "^0.4.0",
+        "playwright": "^1.54.2",
+        "prettier": "^3.6.2",
+        "sass-embedded": "^1.90.0",
+        "tsx": "^4.20.3",
+        "typescript": "^5.9.2",
+        "typescript-eslint": "^8.39.0",
+        "vite": "^7.0.6",
+        "vitest": "^3.2.4"
+    }
+}

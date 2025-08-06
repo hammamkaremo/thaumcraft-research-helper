@@ -1,0 +1,47 @@
+name: On Push
+on:
+  push:
+jobs:
+  codeql:
+    name: CodeQL
+    permissions:
+      #-- To clone the repository
+      contents: read
+      #-- To create security issues
+      security-events: write
+    uses: ./.github/workflows/codeql.yaml
+    with:
+      ref: ${{github.ref}}
+      sha: ${{github.sha}}
+    secrets:
+      github-token: ${{secrets.GITHUB_TOKEN}}
+  build:
+    name: Build
+    permissions:
+      #-- To clone the repository
+      contents: read
+    uses: ./.github/workflows/build.yaml
+    with:
+      ref: ${{github.ref}}
+    secrets:
+      github-token: ${{secrets.GITHUB_TOKEN}}
+  test:
+    name: Test
+    permissions:
+      #-- To clone the repository
+      contents: read
+    uses: ./.github/workflows/test.yaml
+    with:
+      ref: ${{github.ref}}
+    secrets:
+      github-token: ${{secrets.GITHUB_TOKEN}}
+  lint:
+    name: Lint
+    permissions:
+      #-- To clone the repository
+      contents: read
+    uses: ./.github/workflows/lint.yaml
+    with:
+      ref: ${{github.ref}}
+    secrets:
+      github-token: ${{secrets.GITHUB_TOKEN}}
