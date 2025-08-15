@@ -9,9 +9,16 @@ jobs:
     permissions:
       #-- To clone the repository
       contents: read
+    strategy:
+      fail-fast: true
+      matrix:
+        build-type:
+          - production
+          - development
     uses: ./.github/workflows/build.yaml
     with:
       ref: ${{github.ref}}
+      build-type: ${{matrix.build-type}}
     secrets:
       github-token: ${{secrets.GITHUB_TOKEN}}
   test:
