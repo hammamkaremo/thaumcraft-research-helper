@@ -97,7 +97,7 @@ jobs:
       - id: map-build-type
         name: Map build type
         run: |
-          if [[ -n "${{inputs.build-type}}" ]]; then
+          if [[ -z "${{inputs.build-type}}" ]]; then
             echo "::error file=.github\workflows\build.yaml,line=81,endLine=81,col=13,endColumn=234,title=Invalid Build Type::Invalid build type for build workflow. Was expecting one of 'development' or 'production' but got nothing!";
             exit 1;
           fi
