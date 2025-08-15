@@ -1,23 +1,14 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
 name: CodeQL
 on:
-  workflow_call:
-    inputs:
-      ref:
-        description: |
-          The Git reference to operate on.
-        type: string
-        required: true
-      sha:
-        description: |
-          The Git SHA to operate on.
-        type: string
-        required: true
-    secrets:
-      github-token:
-        description: |
-          The token to use for making authenticated requests to GitHub APIs.
-        required: true
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: '0 12 * * 3'
 jobs:
   codeql-analyze:
     name: CodeQL Analyze
@@ -32,27 +23,18 @@ jobs:
         name: Checkout repository
         uses: actions/checkout@v4
         with:
-          ref: ${{inputs.ref}}
           lfs: true
           submodules: recursive
           show-progress: true
-          token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
       - id: initialize-codeql
         name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
           languages: typescript
           queries: security-and-quality
-          token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
       - id: autobuild
         name: Autobuild
         uses: github/codeql-action/autobuild@v3
-        with:
-          token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
       - id: analyze
         name: Analyze
         uses: github/codeql-action/analyze@v3
-        with:
-          ref: ${{inputs.ref}}
-          sha: ${{inputs.sha}}
-          token: ${{secrets.github-token || secrets.GITHUB_TOKEN}}
