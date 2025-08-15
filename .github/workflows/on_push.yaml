@@ -2,27 +2,21 @@ name: On Push
 on:
   push:
 jobs:
-  codeql:
-    name: CodeQL
-    permissions:
-      #-- To clone the repository
-      contents: read
-      #-- To create security issues
-      security-events: write
-    uses: ./.github/workflows/codeql.yaml
-    with:
-      ref: ${{github.ref}}
-      sha: ${{github.sha}}
-    secrets:
-      github-token: ${{secrets.GITHUB_TOKEN}}
   build:
     name: Build
     permissions:
       #-- To clone the repository
       contents: read
+    strategy:
+      fail-fast: true
+      matrix:
+        build-type:
+          - production
+          - development
     uses: ./.github/workflows/build.yaml
     with:
       ref: ${{github.ref}}
+      build-type: ${{matrix.build-type}}
     secrets:
       github-token: ${{secrets.GITHUB_TOKEN}}
   test:

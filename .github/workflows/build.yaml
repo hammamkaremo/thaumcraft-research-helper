@@ -97,18 +97,20 @@ jobs:
       - id: map-build-type
         name: Map build type
         run: |
-          if [[ -n "${{inputs.build-type}}" ]]; then
-            echo "::error file=.github\workflows\build.yaml,line=81,endLine=81,col=13,endColumn=234,title=Invalid Build Type::Invalid build type for build workflow. Was expecting one of 'development' or 'production' but got nothing!"
+          if [[ -z "${{inputs.build-type}}" ]]; then
+            echo "::error file=.github\workflows\build.yaml,line=81,endLine=81,col=13,endColumn=234,title=Invalid Build Type::Invalid build type for build workflow. Was expecting one of 'development' or 'production' but got nothing!";
+            exit 1;
           fi
           case "${{inputs.build-type}}" in
             "production")
-              echo "build-type=prod" >> "$GITHUB_OUTPUT"
+              echo "build-type=prod" >> "$GITHUB_OUTPUT";
             ;;
             "development")
-              echo "build-type=dev" >> "$GITHUB_OUTPUT"
+              echo "build-type=dev" >> "$GITHUB_OUTPUT";
             ;;
             *)
-              echo "::error file=.github\workflows\build.yaml,line=91,endLine=91,col=15,endColumn=253,title=Invalid Build Type::Invalid build type for build workflow. Was expecting one of 'development' or 'production' but got '${{inputs.build-type}}'!"
+              echo "::error file=.github\workflows\build.yaml,line=91,endLine=91,col=15,endColumn=253,title=Invalid Build Type::Invalid build type for build workflow. Was expecting one of 'development' or 'production' but got '${{inputs.build-type}}'!";
+              exit 1;
             ;;
           esac
       - id: build
